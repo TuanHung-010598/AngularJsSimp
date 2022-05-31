@@ -2,125 +2,115 @@
 <html lang="en" ng-app="myApp">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
-    <script src="app.js"></script>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body ng-controller="myController">
-    <div class="main-container">
-        <div ng-show="isStudentPage">
-            <div ng-show="!isStudentEdit">
-                <div class="student-header">
-                    Enter text for search :
-                    <input type="search" ng-model="query">
-                    <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber'"
-                        ng-model="classSelectedFilter"></select>
-                    <a href="#" ng-click="goToClass()">View Class</a>
-                </div>
-                <div class="student-main">
-                    <table>
-                        <thead>
-                            <th>#</th>
-                            <th>Student Name</th>
-                            <th>Age</th>
-                            <th>Class</th>
-                            <th>Action</th>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="student in students | filter:query | filter : searchClassFilter">
-                                <td>{{$index +1}}</td>
-                                <td>{{student.StudentName}}</td>
-                                <td>{{student.StudentBirthday | toAge}}</td>
-                                <td>{{student.ClassId | toClassName:this}}</td>
-                                <td><button ng-click="editClick(student)">Edit</button><button
-                                        ng-click="deleteClick(student)">Delete</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button ng-click="addNewStudentClick()">Add new student</button>
-                </div>
-            </div>
-
-            <div ng-show="isStudentEdit">
-                <div class="edit-form">
-                    <label>Student Name</label>
-                    <input type="text" ng-model="tempStudent.StudentName">
-                </div>
-                <div class="edit-form">
-                    <label>Student Birthday</label>
-                    <input type="date" ng-model="tempStudent.StudentBirthday">
-                </div>
-                <div class="edit-form">
-                    <label>Class</label>
-                    <select
-                        ng-options="item as showNameWithPrefix(item) for item in classes | filter : filterClass | orderBy : 'OrderNumber'"
-                        ng-model="selectedClass">
-
-                    </select>
-                </div>
-
-                <div class="edit-form">
-                    <button ng-click="saveClick()">Save</button>
-                    <button ng-click="studentEditCancel()">Cancel</button>
-                </div>
-            </div>
+  <div class="main-container">
+    <div ng-show="isStudentPage">
+      <div ng-show="!isStudentEdit">
+        <div class="student-header">
+          Enter text for search :
+          <input type="search" ng-model="query">
+          <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber'"
+            ng-model="classSelectedFilter"></select>
+          <a href="#" ng-click="goToClass()">View Class</a>
         </div>
-
-        <div ng-show="!isStudentPage">
-            <div ng-show="!isClassEdit">
-                <div>
-                    Enter text for search :
-                    <input type="search" ng-model="queryClass">
-                    <a href="#" ng-click="goToStudent()">View Student</a>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Class Name</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            ng-repeat="class in classes | filter : filterClass | filter : queryClass | orderBy : 'OrderNumber'">
-                            <td>{{$index +1}}</td>
-                            <td>{{showNameWithPrefix(class)}}</td>
-                            <td><button ng-click="editClassClick(class)">Edit</button><button
-                                    ng-click="deleteClassClick(class)">Delete</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <button ng-click="addNewClassClick()">Add new class</button>
-                <button ng-click="test(1)">test</button>
-            </div>
-            <div ng-show="isClassEdit">
-                <div class="edit-form">
-                    <label>Class Name</label>
-                    <input type="text" ng-model="tempClass.ClassName">
-                </div>
-                <div class="edit-form">
-                    <label>In class</label>
-                    <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber' "
-                        ng-model="parentClass" class="parent-class">
-
-                    </select>
-                </div>
-                <div class="edit-form">
-                    <button ng-click="saveClassClick()">Save</button>
-                    <button ng-click="cancelClassClick()">Cancel</button>
-
-                </div>
-            </div>
+        <div class="student-main">
+          <table>
+            <thead>
+              <th>#</th>
+              <th>Student Name</th>
+              <th>Age</th>
+              <th>Class</th>
+              <th>Action</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="student in students | filter:query | filter : searchClassFilter">
+                <td>{{$index +1}}</td>
+                <td>{{student.StudentName}}</td>
+                <td>{{student.StudentBirthday | toAge}}</td>
+                <td>{{student.ClassId | toClassName:this}}</td>
+                <td><button ng-click="editClick(student)">Edit</button><button
+                    ng-click="deleteClick(student)">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <button ng-click="addNewStudentClick()">Add new student</button>
         </div>
+      </div>
+      <form ng-show="isStudentEdit">
+        <div class="edit-form">
+          <label>Student Name</label>
+          <input type="text" ng-model="tempStudent.StudentName" required>
+        </div>
+        <div class="edit-form">
+          <label>Student Birthday</label>
+          <input type="date" ng-model="tempStudent.StudentBirthday" required>
+        </div>
+        <div class="edit-form">
+          <label>Class</label>
+          <select
+            ng-options="item as showNameWithPrefix(item) for item in classes | filter : filterClass | orderBy : 'OrderNumber'"
+            ng-model="selectedClass">
+          </select>
+        </div>
+        <div class="edit-form">
+          <button ng-click="saveClick()">Save</button>
+          <button ng-click="studentEditCancel()">Cancel</button>
+        </div>
+      </form>
     </div>
-
+    <div ng-show="!isStudentPage">
+      <div ng-show="!isClassEdit">
+        <div>
+          Enter text for search :
+          <input type="search" ng-model="queryClass">
+          <a href="#" ng-click="goToStudent()">View Student</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Class Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="class in classes | filter : filterClass | filter : queryClass | orderBy : 'OrderNumber'">
+              <td>{{$index +1}}</td>
+              <td>{{showNameWithPrefix(class)}}</td>
+              <td><button ng-click="editClassClick(class)">Edit</button><button
+                  ng-click="deleteClassClick(class)">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <button ng-click="addNewClassClick()">Add new class</button>
+      </div>
+      <form ng-show="isClassEdit">
+        <div class="edit-form">
+          <label>Class Name</label>
+          <input type="text" ng-model="tempClass.ClassName" required minlength="4" maxlength="100">
+        </div>
+        <div class="edit-form">
+          <label>In class</label>
+          <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber' "
+            ng-model="parentClass" class="parent-class">
+          </select>
+        </div>
+        <div class="edit-form">
+          <button ng-click="saveClassClick()" type="submit">Save</button>
+          <button ng-click="cancelClassClick()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>
