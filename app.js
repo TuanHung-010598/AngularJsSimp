@@ -69,7 +69,7 @@ app.controller('myController', function ($scope) {
         }
     }
     function getLastID(obj) {
-        return parseInt(Object.keys(obj).pop());
+        return parseInt(Object.keys(obj).pop(), 10);
     }
 
     $scope.goToStudent = () => {
@@ -92,7 +92,7 @@ app.controller('myController', function ($scope) {
     };
 
     $scope.addNewClassClick = () => {
-        $scope.tempClass = { ClassId: getLastID($scope.classes) + 1, ClassName: '', Prefix: '', ParentId: null, OrderNumber: 0 };
+        $scope.tempClass = { ClassId: getLastID($scope.classes) + 1, ClassName: '', Prefix: '', ParentId: 0, OrderNumber: 0 };
         $scope.classes[0].ClassName = 'Not in any class'
         $scope.parentClass = $scope.classes[0];
 
@@ -118,30 +118,27 @@ app.controller('myController', function ($scope) {
         $scope.isClassEdit = false;
         $scope.classes[0].ClassName = "All";
     }
+
     $scope.showNameWithPrefix = function (item) {
         return item.Prefix + item.ClassName;
     }
     function reBuildClass() {
         if ($scope.parentClass.ClassId == 0) {
-            $scope.tempClass.ParentId = null;
+            $scope.tempClass.ParentId = 0;
             $scope.tempClass.Prefix = '';
             $scope.tempClass.OrderNumber = getMaxOrderNumber($scope.classes) + 1;
         }
         else {
 
-            var listClassInParent = $scope.classes.filter((c) => {
-                return c.ParentId == $scope.parentClass.ClassId;
-            });
-
             var maxOrderNumberInParentClass = $scope.getMaxChildOrderNumberByID($scope.parentClass.ClassId);
-
             var maxOrderNumberInClass = getMaxOrderNumber($scope.classes);
+
             $scope.classes.forEach(c => {
                 if (c.OrderNumber > maxOrderNumberInParentClass && c.OrderNumber <= maxOrderNumberInClass) {
                     c.OrderNumber++;
                 }
             });
-            $scope.tempClass.OrderNumber = parseInt(maxOrderNumberInParentClass) + 1;
+            $scope.tempClass.OrderNumber = parseInt(maxOrderNumberInParentClass, 10) + 1;
             $scope.tempClass.Prefix = $scope.parentClass.Prefix + '-';
             $scope.tempClass.ParentId = $scope.parentClass.ClassId;
         }
@@ -152,7 +149,7 @@ app.controller('myController', function ($scope) {
             return object.OrderNumber;
         });
 
-        return parseInt(Math.max(...listOrderNumber));
+        return parseInt(Math.max(...listOrderNumber), 10);
     }
 
     $scope.getMaxChildOrderNumberByID = (classID) => {
@@ -171,7 +168,7 @@ app.controller('myController', function ($scope) {
                 }
             });
         }
-        return parseInt(maxOrderNumber);
+        return parseInt(maxOrderNumber, 10);
     }
 });
 
