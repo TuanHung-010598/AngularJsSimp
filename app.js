@@ -1,7 +1,7 @@
 
 var app = angular.module('myApp', []);
 app.controller('myController', function ($scope) {
-    $scope.isStudentPage = false;
+    $scope.isStudentPage = true;
     $scope.isStudentEdit = false;
     $scope.isClassEdit = false;
     $scope.students = studentArrays;
@@ -120,7 +120,7 @@ app.controller('myController', function ($scope) {
         $scope.classes[0].ClassName = "All";
     }
 
-    $scope.showName = function (item) {
+    $scope.showNameWithPrefix = function (item) {
         return item.Prefix + item.ClassName;
     }
     function reBuildClass() {

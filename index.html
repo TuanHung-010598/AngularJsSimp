@@ -18,7 +18,7 @@
                 <div class="student-header">
                     Enter text for search :
                     <input type="search" ng-model="query">
-                    <select ng-options="item as showName(item) for item in classes | orderBy : 'OrderNumber'"
+                    <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber'"
                         ng-model="classSelectedFilter"></select>
                     <a href="#" ng-click="goToClass()">View Class</a>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="edit-form">
                     <label>Class</label>
                     <select
-                        ng-options="item as showName(item) for item in classes | filter : filterClass | orderBy : 'OrderNumber'"
+                        ng-options="item as showNameWithPrefix(item) for item in classes | filter : filterClass | orderBy : 'OrderNumber'"
                         ng-model="selectedClass">
 
                     </select>
@@ -91,7 +91,7 @@
                         <tr
                             ng-repeat="class in classes | filter : filterClass | filter : queryClass | orderBy : 'OrderNumber'">
                             <td>{{$index +1}}</td>
-                            <td>{{showName(class)}}</td>
+                            <td>{{showNameWithPrefix(class)}}</td>
                             <td>{{class.OrderNumber}}</td>
                             <td><button ng-click="editClassClick(class)">Edit</button><button
                                     ng-click="deleteClassClick(class)">Delete</button></td>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="edit-form">
                     <label>In class</label>
-                    <select ng-options="item as showName(item) for item in classes | orderBy : 'OrderNumber' "
+                    <select ng-options="item as showNameWithPrefix(item) for item in classes | orderBy : 'OrderNumber' "
                         ng-model="parentClass" class="parent-class">
 
                     </select>
