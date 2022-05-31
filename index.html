@@ -83,7 +83,6 @@
                         <tr>
                             <th>#</th>
                             <th>Class Name</th>
-                            <th>Order Number</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -92,7 +91,6 @@
                             ng-repeat="class in classes | filter : filterClass | filter : queryClass | orderBy : 'OrderNumber'">
                             <td>{{$index +1}}</td>
                             <td>{{showNameWithPrefix(class)}}</td>
-                            <td>{{class.OrderNumber}}</td>
                             <td><button ng-click="editClassClick(class)">Edit</button><button
                                     ng-click="deleteClassClick(class)">Delete</button></td>
                         </tr>

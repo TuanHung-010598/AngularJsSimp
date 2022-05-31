@@ -8,7 +8,6 @@ app.controller('myController', function ($scope) {
     $scope.classes = classArrays;
     $scope.studentAction = 'Add';
     $scope.classAction = 'Add';
-    $scope.studentEditting = {};
     $scope.selectedClass = $scope.classes[1];
     $scope.classSelectedFilter = $scope.classes[0];
 
