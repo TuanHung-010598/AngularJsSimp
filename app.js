@@ -65,9 +65,27 @@ app.controller('myController', function ($scope) {
             return s;
         }
         else {
-            return s.ClassId == $scope.classSelectedFilter.ClassId;
+            $scope.listResult = [];
+            return $scope.getAllClassIdByClassID($scope.classSelectedFilter.ClassId).indexOf(s.ClassId) > -1;
         }
     }
+
+    $scope.getAllClassIdByClassID = (classID) => {
+        $scope.listResult.push(classID);
+        var listChild = $scope.classes.filter(c => {
+            return c.ParentId == classID;
+        });
+        if (!listChild.length) {
+            return $scope.listResult;
+        } else {
+            listChild.forEach(element => {
+                $scope.getAllClassIdByClassID(element.ClassId);
+            });
+        }
+
+        return $scope.listResult;
+    }
+
     function getLastID(obj) {
         return parseInt(Object.keys(obj).pop(), 10);
     }
